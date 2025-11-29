@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Ticket;
+use App\Models\TicketType;
 use Illuminate\Http\Request;
 
-class TicketController extends Controller
+class TicketTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        return view('ticket.index');
+        $types = TicketType::all();
+
+        return view('ticket-type.index', compact('types'));
     }
 
     /**
@@ -34,7 +36,7 @@ class TicketController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Ticket $ticket)
+    public function show(TicketType $ticketType)
     {
         //
     }
@@ -42,7 +44,7 @@ class TicketController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Ticket $ticket)
+    public function edit(TicketType $ticketType)
     {
         //
     }
@@ -50,7 +52,7 @@ class TicketController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Ticket $ticket)
+    public function update(Request $request, TicketType $ticketType)
     {
         //
     }
@@ -58,7 +60,7 @@ class TicketController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Ticket $ticket)
+    public function destroy(TicketType $ticketType)
     {
         //
     }

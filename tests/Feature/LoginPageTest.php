@@ -29,3 +29,14 @@ it('does not allow admins to authenticate with invalid password', function () {
 
     $this->assertGuest();
 });
+
+it('allows users to logout', function () {
+    $admin = Admin::factory()->create();
+
+    $response = $this->actingAs($admin)
+        ->post('/logout');
+
+    $this->assertGuest();
+
+    $response->assertRedirect('/login');
+});
