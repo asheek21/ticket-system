@@ -3,7 +3,6 @@
 namespace App\Actions;
 
 use App\Enums\TicketTypeStatusEnum;
-use App\Jobs\CreateTicketTypeConfigurationJob;
 use App\Models\TicketType;
 
 class CreateTicketTypeAction
@@ -13,8 +12,6 @@ class CreateTicketTypeAction
         $data['migration_status'] = TicketTypeStatusEnum::Started;
 
         $TicketType = TicketType::create($data);
-
-        CreateTicketTypeConfigurationJob::dispatch($TicketType);
 
         return $TicketType;
     }

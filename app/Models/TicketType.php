@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use App\Enums\TicketTypeStatusEnum;
+use App\Observers\TicketTypeObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -25,8 +28,12 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @mixin \Eloquent
  */
+#[ObservedBy([TicketTypeObserver::class])]
 class TicketType extends Model
 {
+    /** @use HasFactory<\Database\Factories\TicketTypeFactory> */
+    use HasFactory;
+
     protected $fillable = [
         'type',
         'database_name',
@@ -38,5 +45,10 @@ class TicketType extends Model
         return [
             'migration_status' => TicketTypeStatusEnum::class,
         ];
+    }
+
+    public function scopeIsCompleted()
+    {
+        return $this->where('migration_status', TicketTypeStatusEnum::Completed);
     }
 }

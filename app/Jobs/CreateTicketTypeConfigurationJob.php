@@ -26,6 +26,7 @@ class CreateTicketTypeConfigurationJob implements ShouldQueue
      */
     public function handle(DatabaseService $service, ModelService $modelService): void
     {
+        info("Creating ticket type: {$this->ticketType->type}");
         try {
 
             $service->execute($this->ticketType);

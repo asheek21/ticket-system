@@ -12,6 +12,7 @@ class DatabaseService
     public function execute(TicketType $ticketType): void
     {
         try {
+
             $this->removeExistingDatabase($ticketType->database_name);
 
             $this->createDatabase($ticketType->database_name);
@@ -40,12 +41,12 @@ class DatabaseService
 
     private function removeExistingDatabase(string $dbName)
     {
-        $removed = DB::connection('mysql')->statement(
-            "DROP DATABASE IF EXISTS `{$dbName}`"
-        );
-
-        if ($removed) {
-            info("Database {$dbName} removed successfully.");
+        try {
+            DB::connection('mysql')->statement(
+                "DROP DATABASE IF EXISTS `{$dbName}`"
+            );
+        } catch (\Throwable $e) {
+            info('DatabaseService: safe ignore DROP error: '.$e->getMessage());
         }
     }
 }

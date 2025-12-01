@@ -26,7 +26,7 @@ class TicketController extends Controller
      */
     public function create()
     {
-        $ticketTypes = TicketType::all();
+        $ticketTypes = TicketType::isCompleted()->get();
 
         return view('ticket.create', compact('ticketTypes'));
     }
